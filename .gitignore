@@ -1,0 +1,17 @@
+# machine-specific / secrets — never commit
+config.yml.preset-bak
+config.yml.bak*
+config.yml.lock
+agent.db
+agent.db-shm
+agent.db-wal
+history.db*
+models.db*
+sessions/
+logs/
+cache/
+blobs/
+install-id
+autoqa.db
+*.DS_Store
+.DS_Store
