@@ -6,6 +6,7 @@
     {"name": "pi-clinepass-provider", "ref": "npm:pi-clinepass-provider", "optional": false},
     {"name": "pi-warp", "ref": "npm:pi-warp", "optional": false},
     {"name": "pi-web-access", "ref": "npm:pi-web-access", "optional": false},
-    {"name": "omp-tldr", "ref": "~/Projects/omp-tldr", "optional": true}
+    {"name": "omp-tldr", "ref": "~/Projects/omp-tldr", "optional": true},
+    {"name": "omp-statusline", "ref": "~/Projects/omp-statusline", "optional": true}
   ]
 }
