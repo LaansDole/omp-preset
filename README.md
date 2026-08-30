@@ -24,6 +24,8 @@ skill for the rationale.
 - `plugins.json` — installed extension list + install refs (never copy `node_modules`).
 - `skills/writing-pr-descriptions/SKILL.md` — the PR-description standard the `pr`
   agent reads.
+- Native statusline via `config.yml` (`statusLine.contextLine`, `rightSegments`,
+  `display.showTokenUsage`) — see [Statusline](#statusline).
 
 **NOT ported (machine-specific / secrets; do NOT commit):**
 - `~/.omp/agent/agent.db*` (OAuth credentials), `history.db`, `models.db`,
@@ -52,21 +54,26 @@ auth login` → anthropic) — the OAuth credential in `agent.db` is not portabl
 
 ## Statusline
 
-The `pi-statusline` extension (npm) pipes a Claude-Code-compatible JSON payload
-(model, context-window usage, cost, session) into `statusline.sh` on stdin and
-renders its stdout as the TUI footer. The script shows:
+**omp has a built-in native statusline** (config keys `statusLine.*`) — that's what
+renders in the terminal, and it's what this preset configures. It shows model,
+context %, and git on the right segment:
 
-```
-Fable 5 ┃ ctx 42% [code] ┃ $1.23 ┃ main*
+```yaml
+display:
+  showTokenUsage: true
+statusLine:
+  contextLine: percentage       # off | percentage | annotated | embedded
+  rightSegments: [model, context, git]
 ```
 
-- `ctx` zone hints (the idea comes from u/luongnv-com's `statusline-pi` from
-  r/PiCodingAgent): `[code]` ≤ 59% used → plenty of room; `[wrap up]` 60–84% →
-  finish the current task; `[NEW SESSION]` ≥ 85% → start fresh.
-- Tunables at the top of `statusline.sh`: `CODE_ZONE_MAX`, `WRAP_ZONE_MAX`.
-- Settings live in `~/.pi/agent/settings.json` under `statusLine`
-  (`placement`, `padding`, `debounceMs`, `timeoutMs`); bootstrap merges them
-  without touching your other pi settings (e.g. `piWarp`).
+Segment values accepted by omp: `model`, `path`, `git`, `context`, `cost`.
+
+> **Note on `pi-statusline` (npm):** this preset used to wire the `pi-statusline`
+> extension (a Claude-Code-compatible command-driven statusline that draws via
+> `ctx.ui.setFooter()`). Verified against omp's live UI stream, **omp does not render
+> extension footers** — it draws its own native bar instead — so pi-statusline shows
+> "no difference." Use the native `statusLine.*` config above (or write a custom
+> extension via `ctx.ui.setStatus()`, the mechanism omp does render).
 
 ## Package install
 
@@ -78,7 +85,6 @@ What the package path covers vs. what still needs `bootstrap.sh`:
 | Task agents (`agents/*.md`) | yes — package roots are scanned for `agents/` | copied into `~/.omp/agent/agents/` |
 | Skills (`skills/`) | yes — `omp`/`pi` manifest `skills` key | copied to `~/.agents/skills/` |
 | config.yml / WATCHDOG.md | no — not package-scannable | copied |
-| statusline.sh + pi settings | no — settings live outside omp | copied + merged |
 | plugins by ref | no — needs `omp plugin install` | reinstalled |
 
 Install as a package (after cloning):
