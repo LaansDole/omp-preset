@@ -4,6 +4,7 @@
     {"name": "@dietrichgebert/ponytail", "ref": "npm:@dietrichgebert/ponytail", "optional": false},
     {"name": "i-have-adhd", "ref": "https://github.com/ayghri/i-have-adhd", "optional": false},
     {"name": "pi-clinepass-provider", "ref": "npm:pi-clinepass-provider", "optional": false},
+    {"name": "pi-statusline", "ref": "npm:pi-statusline", "optional": false},
     {"name": "pi-warp", "ref": "npm:pi-warp", "optional": false},
     {"name": "pi-web-access", "ref": "npm:pi-web-access", "optional": false},
     {"name": "omp-tldr", "ref": "~/Projects/omp-tldr", "optional": true}

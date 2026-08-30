@@ -1,0 +1,28 @@
+{
+  "name": "omp-preset",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "LaansDole's portable Oh-My-Pi preset: config, task agents, statusline, watchdog, skills. Installable as a pi/omp package (agents + skills) with bootstrap.sh covering the machine-level pieces.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaansDole/omp-preset.git"
+  },
+  "files": [
+    "agents",
+    "skills",
+    "config.yml",
+    "WATCHDOG.md",
+    "statusline.sh",
+    "plugins.json",
+    "bootstrap.sh",
+    "README.md"
+  ],
+  "omp": {
+    "skills": ["./skills"]
+  },
+  "pi": {
+    "skills": ["./skills"]
+  }
+}
