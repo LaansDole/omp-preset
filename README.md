@@ -65,16 +65,6 @@ statusLine:
 
 Segment values accepted by omp: `model`, `path`, `git`, `context`, `cost`.
 
-> **Why not a custom extension (`ctx.ui.setStatus`)?** We evaluated building a
-> ccstatusline-style custom statusline as an omp extension (setStatus is the only
-> mechanism omp renders for extension statuslines — `setFooter` is ignored). The
-> extension could only re-expose data omp's native bar already shows (model,
-> context %, cost) plus a zone label (a restyle of context %) — it couldn't reach
-> ccstatusline's richer widgets (cache hit rate, granular usage, etc.) because an
-> omp extension's `ctx` exposes no settings store and bonus metrics. Net effect was
-> duplication with no added value, so the custom extension was dropped and the
-> native config is used instead.
-
 ## Package install
 
 The repo doubles as a pi/omp package (`package.json` with `omp`/`pi` manifests).
