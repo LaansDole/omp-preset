@@ -1,7 +1,7 @@
 ---
 name: reviewer
 description: "Code review specialist for quality/security analysis (fast triage pass)"
-tools: read, grep, glob, bash, lsp, web_search, ast_grep
+tools: read, grep, glob, bash, lsp, web_search, ast_grep, mcp__omp_episodic_memory_recall_for_task, mcp__omp_episodic_memory_search, mcp__omp_episodic_memory_list_gotchas
 spawns: scout
 model: ["@smol", "anthropic/claude-sonnet-5"]
 output:
@@ -64,6 +64,8 @@ Find bugs author wants fixed before merge.
 
 Bash read-only: `git diff`, `git log`, `git show`, `jj diff --git`, `gh pr diff`. NEVER edit files or trigger builds.
 </procedure>
+
+Before finalizing, consult the second brain (`mcp__omp_episodic_memory_recall_for_task` / `search` / `list_gotchas`) for prior sessions, decisions, or gotchas bearing on the code under review. Use it as supplementary context only — every finding must still be evidence-backed against the current patch.
 
 <criteria>
 Report only issues meeting ALL:
