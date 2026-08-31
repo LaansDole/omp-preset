@@ -16,10 +16,9 @@ skill for the rationale.
 ## What's ported (and what's not)
 
 **Ported (version this):**
-- `config.yml` — source-of-truth settings (modelRoles, advisor, task overrides).
+- `config.yml` — source-of-truth settings (modelRoles, advisor, task overrides) +
+  native statusline config.
 - `agents/*.md` — custom task agents: `reviewer`, `reviewer-deep`, `tldr`, `pr`.
-- `statusline.sh` — Claude Code-compatible statusline command (model, context %,
-  zone hint, cost, git branch) fed by the `pi-statusline` extension.
 - `WATCHDOG.md` — advisor review-priority guidance.
 - `plugins.json` — installed extension list + install refs (never copy `node_modules`).
 - `skills/writing-pr-descriptions/SKILL.md` — the PR-description standard the `pr`
@@ -41,13 +40,11 @@ cd ~/omp-preset
 OMP_PROFILE=work ./bootstrap.sh
 ```
 
-`bootstrap.sh` copies `config.yml` + `agents/*.md` + `WATCHDOG.md` +
-`statusline.sh` into the active omp agent dir (`~/.omp/agent` by default,
-`~/.omp/profiles/<name>/agent` when a profile is set, or `$PI_CODING_AGENT_DIR`),
-merges the `statusLine` block into `~/.pi/agent/settings.json` (the path the
-`pi-statusline` extension reads — omp's `config.yml` is NOT consulted for it),
-places the PR skill so the `pr` agent's reference resolves, and re-installs
-plugins by reference. It leaves machine-specific state untouched.
+`bootstrap.sh` copies `config.yml` + `agents/*.md` + `WATCHDOG.md` into the active
+omp agent dir (`~/.omp/agent` by default, `~/.omp/profiles/<name>/agent` when a
+profile is set, or `$PI_CODING_AGENT_DIR`), places the PR skill so the `pr` agent's
+reference resolves, and re-installs plugins by reference. It leaves
+machine-specific state untouched.
 
 After bootstrapping on a fresh machine, **re-login to your providers** (`opencode
 auth login` → anthropic) — the OAuth credential in `agent.db` is not portable.
@@ -55,8 +52,8 @@ auth login` → anthropic) — the OAuth credential in `agent.db` is not portabl
 ## Statusline
 
 **omp has a built-in native statusline** (config keys `statusLine.*`) — that's what
-renders in the terminal, and it's what this preset configures. It shows model,
-context %, and git on the right segment:
+renders in the terminal, and it's the statusline of record. This preset configures
+it to show model, context %, and git on the right segment:
 
 ```yaml
 display:
@@ -68,12 +65,15 @@ statusLine:
 
 Segment values accepted by omp: `model`, `path`, `git`, `context`, `cost`.
 
-> **Note on `pi-statusline` (npm):** this preset used to wire the `pi-statusline`
-> extension (a Claude-Code-compatible command-driven statusline that draws via
-> `ctx.ui.setFooter()`). Verified against omp's live UI stream, **omp does not render
-> extension footers** — it draws its own native bar instead — so pi-statusline shows
-> "no difference." Use the native `statusLine.*` config above (or write a custom
-> extension via `ctx.ui.setStatus()`, the mechanism omp does render).
+> **Why not a custom extension (`ctx.ui.setStatus`)?** We evaluated building a
+> ccstatusline-style custom statusline as an omp extension (setStatus is the only
+> mechanism omp renders for extension statuslines — `setFooter` is ignored). The
+> extension could only re-expose data omp's native bar already shows (model,
+> context %, cost) plus a zone label (a restyle of context %) — it couldn't reach
+> ccstatusline's richer widgets (cache hit rate, granular usage, etc.) because an
+> omp extension's `ctx` exposes no settings store and bonus metrics. Net effect was
+> duplication with no added value, so the custom extension was dropped and the
+> native config is used instead.
 
 ## Package install
 
