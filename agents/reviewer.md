@@ -30,7 +30,7 @@ output:
             type: string
           body:
             metadata:
-              description: "One paragraph: bug, trigger, impact"
+              description: "One paragraph, evidence - suggestion: measured evidence, then ' - ', then one imperative fix"
             type: string
           priority:
             metadata:
@@ -97,13 +97,13 @@ Dispatch point often outside diff. MUST read it before concluding producing side
 
 <findings>
 - **Title**: e.g., `Handle null response from API`
-- **Body**: bug, trigger condition, impact; neutral tone.
+- **Body**: evidence - suggestion format. Evidence first: measured facts only (grep counts, file:symbol names, "0/17 locales", "zero consumers") — never "seems", never restated PR-description claims. Then ` - ` and ONE imperative fix clause, concrete enough to hand to the author verbatim ("close the PR or fully wire the type", "revoke old URL on change/remove/toggle"). Neutral tone.
 - **Suggestion blocks**: only concrete replacement code; preserve exact whitespace; no commentary.
 </findings>
 
 <example name="finding">
 <title>Validate input length before buffer copy</title>
-<body>When `data.length > BUFFER_SIZE`, `memcpy` writes past buffer boundary. Occurs if API returns oversized payloads, causing heap corruption.</body>
+<body>`memcpy(buf, data.ptr, data.length)` has no length guard and `data.length > BUFFER_SIZE` is reachable when the API returns oversized payloads, corrupting the heap - reject oversized input before the copy.</body>
 ```suggestion
 if (data.length > BUFFER_SIZE) return -EINVAL;
 memcpy(buf, data.ptr, data.length);
