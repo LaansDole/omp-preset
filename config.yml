@@ -4,11 +4,11 @@ theme:
 setupVersion: 2
 modelRoles: 
   smol: anthropic/claude-haiku-4-5
-  slow: anthropic/claude-opus-5:xhigh
+  slow: anthropic/claude-fable-5:xhigh
   designer: anthropic/claude-sonnet-5
   advisor: anthropic/claude-sonnet-5:medium
   plan: anthropic/claude-sonnet-5
-  default: anthropic/claude-fable-5:xhigh
+  default: anthropic/claude-opus-5:xhigh
 browser: 
   headless: false
 dev: 

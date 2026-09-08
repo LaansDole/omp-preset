@@ -3,7 +3,7 @@ name: reviewer-deep
 description: "Second-pass deep code review for P0/P1 findings and correctness verification (slow, thorough)"
 tools: read, grep, glob, bash, lsp, web_search, ast_grep, mcp__omp_episodic_memory_recall_for_task, mcp__omp_episodic_memory_search, mcp__omp_episodic_memory_list_gotchas
 spawns: scout
-model: ["anthropic/claude-opus-5:xhigh", "@slow"]
+model: ["anthropic/claude-fable-5:xhigh", "@slow"]
 output:
   properties:
     overall_correctness:
