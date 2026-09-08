@@ -21,11 +21,6 @@
       "optional": false
     },
     {
-      "name": "pi-commandcode-provider",
-      "ref": "npm:pi-commandcode-provider",
-      "optional": false
-    },
-    {
       "name": "pi-warp",
       "ref": "npm:pi-warp",
       "optional": false
