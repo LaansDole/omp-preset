@@ -29,11 +29,6 @@
       "name": "pi-web-access",
       "ref": "npm:pi-web-access",
       "optional": false
-    },
-    {
-      "name": "omp-tldr",
-      "ref": "~/Projects/omp-tldr",
-      "optional": true
     }
   ]
 }

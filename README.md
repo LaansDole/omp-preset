@@ -18,7 +18,7 @@ skill for the rationale.
 **Ported (version this):**
 - `config.yml` — source-of-truth settings (modelRoles, advisor, task overrides) +
   native statusline config.
-- `agents/*.md` — custom task agents: `reviewer`, `reviewer-deep`, `tldr`, `pr`.
+- `agents/*.md` — custom task agents: `reviewer`, `reviewer-deep`, and `pr`. The separate `tldr` agent is intentionally removed to avoid repetitive summaries; the advisor asks the primary agent for one concise ELI5/TL;DR at the end of substantive work when needed.
 - `WATCHDOG.md` — advisor review-priority guidance.
 - `plugins.json` — installed extension list + install refs (never copy `node_modules`).
 - `skills/writing-pr-descriptions/SKILL.md` — the PR-description standard the `pr`

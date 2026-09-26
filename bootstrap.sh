@@ -35,6 +35,8 @@ cp "$REPO/config.yml" "$AGENT_DIR/config.yml"
 
 # 2. custom task agents.
 cp "$REPO"/agents/*.md "$AGENT_DIR/agents/"
+# Remove the retired standalone summarizer from existing installs as well.
+rm -f "$AGENT_DIR/agents/tldr.md"
 
 # 3. watchdog guidance.
 cp "$REPO/WATCHDOG.md" "$AGENT_DIR/WATCHDOG.md"

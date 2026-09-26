@@ -3,7 +3,7 @@ theme:
   dark: titanium
 setupVersion: 2
 modelRoles: 
-  smol: anthropic/claude-haiku-4-5
+  smol: commandcode/gpt-6-luna:medium
   slow: anthropic/claude-fable-5:xhigh
   designer: anthropic/claude-sonnet-5
   advisor: anthropic/claude-sonnet-5:medium
@@ -28,6 +28,7 @@ task:
     init: "@smol"
 advisor: 
   enabled: true
+  immuneTurns: 8
 statusLine: 
   contextLine: percentage
   rightSegments: 
