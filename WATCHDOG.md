@@ -28,6 +28,7 @@ Global review priorities for the omp advisor. This file is injected on every adv
 - A plan implemented out of order, or a plan file modified by the implementing agent.
 - Dead, orphaned, or duplicated code paths left behind by a refactor.
 - Work violating standing constraints: local-first, manual UI verification, or no focus-stealing foreground clicks.
+- A loop or drift spread across the updates in one review. The judge gate holds low-risk steps and batches them into the next review, so read the whole span, not just the newest step.
 
 ## Short plain-English wrap-up
 

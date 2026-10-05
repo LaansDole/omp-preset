@@ -41,6 +41,13 @@ rm -f "$AGENT_DIR/agents/tldr.md"
 # 3. watchdog guidance.
 cp "$REPO/WATCHDOG.md" "$AGENT_DIR/WATCHDOG.md"
 
+# 3b. judge key for advisor.judgeGate (Jev). Only from env; never committed.
+if [[ -n "${TYPESAFE_API_KEY:-}" ]] && ! grep -qs '^TYPESAFE_API_KEY=' "$AGENT_DIR/.env"; then
+  ( umask 077; printf 'TYPESAFE_API_KEY=%s\n' "$TYPESAFE_API_KEY" >> "$AGENT_DIR/.env" )
+  chmod 600 "$AGENT_DIR/.env"
+  echo "  judge key  -> $AGENT_DIR/.env"
+fi
+
 # 4. PR-description skill — placed so the pr agent's reference resolves.
 SKILL_DST="${PR_SKILL_DIR:-$HOME/.agents/skills/writing-pr-descriptions}"
 mkdir -p "$SKILL_DST"

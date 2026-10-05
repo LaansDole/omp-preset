@@ -1,4 +1,5 @@
 # machine-specific / secrets — never commit
+.env
 config.yml.preset-bak
 config.yml.bak*
 config.yml.lock

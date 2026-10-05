@@ -29,6 +29,7 @@ task:
 advisor: 
   enabled: true
   immuneTurns: 8
+  judgeGate: true
 statusLine: 
   contextLine: percentage
   rightSegments: 

@@ -20,6 +20,7 @@ skill for the rationale.
   native statusline config.
 - `agents/*.md` — custom task agents: `reviewer`, `reviewer-deep`, and `pr`. The separate `tldr` agent is intentionally removed to avoid repetitive summaries; the advisor asks the primary agent for one concise ELI5/TL;DR at the end of substantive work when needed.
 - `WATCHDOG.md` — advisor review-priority guidance.
+- Advisor judge gate (`advisor.judgeGate`) — see [Advisor judge gate](#advisor-judge-gate-jev).
 - `plugins.json` — installed extension list + install refs (never copy `node_modules`).
 - `skills/writing-pr-descriptions/SKILL.md` — the PR-description standard the `pr`
   agent reads.
@@ -28,7 +29,7 @@ skill for the rationale.
 
 **NOT ported (machine-specific / secrets; do NOT commit):**
 - `~/.omp/agent/agent.db*` (OAuth credentials), `history.db`, `models.db`,
-  `sessions/`, `logs/`, `cache/`, `blobs/`, `install-id`, `autoqa.db`.
+  `sessions/`, `logs/`, `cache/`, `blobs/`, `install-id`, `autoqa.db`, `.env` (API keys).
 
 ## Install on a new machine
 
@@ -64,6 +65,21 @@ statusLine:
 ```
 
 Segment values accepted by omp: `model`, `path`, `git`, `context`, `cost`.
+
+## Advisor judge gate (Jev)
+
+`advisor.judgeGate: true` has the `judge` model role (TypeSafe Jev when
+`TYPESAFE_API_KEY` is set) screen each in-progress advisor update with four yes/no
+questions: destructive, guessing, looping, shortcut. If every score is below 0.2, the
+advisor skips that review, and the update rides along with the next one. Final
+updates are always reviewed.
+
+- **omp support:** ships with the `feat/advisor-judge-gate` PR. Until it lands,
+  release omp ignores the key; build the branch to use it.
+- **Key:** `TYPESAFE_API_KEY=… ./bootstrap.sh` writes it to `<agent dir>/.env` (mode
+  600, never committed). Without it, the judge falls back to the smol/default model.
+- **Watch verdicts:**
+  `tail -F ~/.omp/logs/omp.$(date +%F).*.log | grep --line-buffered "advisor review gate"`
 
 ## Package install
 
