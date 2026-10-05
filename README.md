@@ -76,8 +76,8 @@ updates are always reviewed.
 
 - **omp support:** ships with the `feat/advisor-judge-gate` PR. Until it lands,
   release omp ignores the key; build the branch to use it.
-- **Key:** `TYPESAFE_API_KEY=… ./bootstrap.sh` writes it to `<agent dir>/.env` (mode
-  600, never committed). Without it, the judge falls back to the smol/default model.
+- **Key:** add `TYPESAFE_API_KEY=…` to `~/.omp/agent/.env` yourself (`chmod 600`;
+  never commit it). Without it, the judge falls back to the smol/default model.
 - **Watch verdicts:**
   `tail -F ~/.omp/logs/omp.$(date +%F).*.log | grep --line-buffered "advisor review gate"`
 
