@@ -23,6 +23,9 @@ composer:
 task: 
   agentPrewalk: 
     {}
+  agentAdvisor:
+    scout: "on"
+    reviewer: "on"
   agentModelOverrides: 
     security-reviewer: "@slow"
     init: "@smol"
