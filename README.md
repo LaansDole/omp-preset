@@ -1,7 +1,7 @@
 # omp-preset
 
 Portable Oh-My-Pi (**omp**) harness — the user-scope config, custom task agents,
-statusline, watchdog, plugin list, and the PR-description skill, ready to install
+statusline, watchdog, plugin list, and skills, ready to install
 on any machine. This is **not an omp fork**: a fork would pin you to a rebuilt
 binary and increase staleness; this repo always installs the current omp and only
 carries the *portable* layer (config + agents + extensions), which is what a fork
@@ -22,8 +22,9 @@ skill for the rationale.
 - `WATCHDOG.md` — advisor review-priority guidance.
 - Advisor judge gate (`advisor.judgeGate`) — see [Advisor judge gate](#advisor-judge-gate-jev).
 - `plugins.json` — installed extension list + install refs (never copy `node_modules`).
-- `skills/writing-pr-descriptions/SKILL.md` — the PR-description standard the `pr`
-  agent reads.
+- `skills/` — `writing-pr-descriptions` (the PR standard the `pr` agent reads),
+  `auditing-worktrees` (worktree status audit), `sweeping-merged-worktrees`
+  (prune merged worktrees).
 - Native statusline via `config.yml` (`statusLine.contextLine`, `rightSegments`,
   `display.showTokenUsage`) — see [Statusline](#statusline).
 
@@ -43,8 +44,8 @@ OMP_PROFILE=work ./bootstrap.sh
 
 `bootstrap.sh` copies `config.yml` + `agents/*.md` + `WATCHDOG.md` into the active
 omp agent dir (`~/.omp/agent` by default, `~/.omp/profiles/<name>/agent` when a
-profile is set, or `$PI_CODING_AGENT_DIR`), places the PR skill so the `pr` agent's
-reference resolves, and re-installs plugins by reference. It leaves
+profile is set, or `$PI_CODING_AGENT_DIR`), copies `skills/*` into `~/.agents/skills/`
+(so the `pr` agent's skill reference resolves), and re-installs plugins by reference. It leaves
 machine-specific state untouched.
 
 After bootstrapping on a fresh machine, **re-login to your providers** (`opencode

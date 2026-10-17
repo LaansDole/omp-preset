@@ -41,10 +41,10 @@ rm -f "$AGENT_DIR/agents/tldr.md"
 # 3. watchdog guidance.
 cp "$REPO/WATCHDOG.md" "$AGENT_DIR/WATCHDOG.md"
 
-# 4. PR-description skill — placed so the pr agent's reference resolves.
-SKILL_DST="${PR_SKILL_DIR:-$HOME/.agents/skills/writing-pr-descriptions}"
+# 4. skills — each skills/<name>/ copied to ~/.agents/skills/<name>/ (pr agent reads writing-pr-descriptions).
+SKILL_DST="${SKILLS_DIR:-$HOME/.agents/skills}"
 mkdir -p "$SKILL_DST"
-cp "$REPO/skills/writing-pr-descriptions/SKILL.md" "$SKILL_DST/SKILL.md"
+cp -R "$REPO/skills/." "$SKILL_DST/"
 
 # 5. plugins — re-installed by reference; never copy node_modules.
 if command -v python3 >/dev/null 2>&1 && [[ -f "$REPO/plugins.json" ]]; then
@@ -68,7 +68,7 @@ echo "Done."
 echo "  config     -> $AGENT_DIR/config.yml  (prior saved as .preset-bak)"
 echo "  agents     -> $AGENT_DIR/agents/"
 echo "  watchdog   -> $AGENT_DIR/WATCHDOG.md"
-echo "  pr skill   -> $SKILL_DST/SKILL.md"
+echo "  skills     -> $SKILL_DST/"
 echo "  plugins    -> reinstalled by ref (optional/missing local ones skipped)"
 echo
 echo "Notes:"
