@@ -4,7 +4,7 @@
 #
 # NOT a fork: this copies omp's user-scope dotfiles into place and re-installs
 # plugins by reference. It does NOT touch machine-specific state (agent.db OAuth,
-# history.db, models.db, sessions, logs, caches) — re-login to your providers after.
+# history.db, models.db, sessions, logs, caches) — log in to Anthropic again after (omp login anthropic).
 #
 # Target profile: set OMP_PROFILE (or pass nothing for the default profile).
 set -euo pipefail
@@ -71,5 +71,5 @@ echo "  plugins    -> reinstalled by ref (optional/missing local ones skipped)"
 echo
 echo "Notes:"
 echo "  - Machine-specific state (agent.db OAuth, history.db, models.db, sessions, logs, caches) was NOT ported."
-echo "  - Re-login to your providers before first use, e.g. 'omp login anthropic'."
+echo "  - Log in to Anthropic before first use: 'omp login anthropic'."
 echo "  - If omp changes a config/agent schema in a future release, update this repo (git) and re-run."

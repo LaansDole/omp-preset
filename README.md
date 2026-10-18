@@ -15,16 +15,12 @@ cd ~/omp-preset
 ./bootstrap.sh                 # installs into the default profile
 ```
 
-Then sign in to your providers. Logins live in `~/.omp/agent/agent.db`, which
+Then sign in to Anthropic. Your login lives in `~/.omp/agent/agent.db`, which
 `bootstrap.sh` never copies, so a new machine starts signed out:
 
 ```bash
-omp login anthropic            # or just `omp login` to pick; `/login` inside omp works too
+omp login anthropic            # or type /login inside omp
 ```
-
-The `smol` role uses the Command Code provider, so also put its API key in
-`~/.omp/agent/.env` (never commit it), or point `modelRoles.smol` at a model you
-can sign in to.
 
 Done. Start `omp` as usual.
 
@@ -129,16 +125,13 @@ omp plugin install ~/omp-preset   # one-time copy
 Use `bootstrap.sh` for the full setup. Use the package link if you only want
 agents and skills to stay in sync while you edit them.
 
-## Advanced: advisor judge gate (Jev)
+## Advanced: advisor judge gate
 
-`advisor.judgeGate: true` lets a `judge` model pre-screen advisor updates
+`advisor.judgeGate: true` lets the `judge` model role pre-screen advisor updates
 (destructive / guessing / looping / shortcut). Low-risk steps skip review and get
 batched into the next one; final updates are always reviewed.
 
 - Needs an omp build with the `feat/advisor-judge-gate` change; release omp ignores the key.
-- Uses TypeSafe Jev if `TYPESAFE_API_KEY` is in `~/.omp/agent/.env` (add it
-  yourself, `chmod 600`, never commit). Without it, the judge falls back to the
-  smol/default model.
 - Watch decisions:
   `tail -F ~/.omp/logs/omp.$(date +%F).*.log | grep --line-buffered "advisor review gate"`
 
@@ -157,5 +150,5 @@ batched into the next one; final updates are always reviewed.
 | Symptom | Fix |
 |---|---|
 | Chrome for Testing keeps grabbing focus | Check `omp config get browser.headless` is `true`, restart omp, quit the leftover Chrome window |
-| "Insufficient balance" / wrong model used | Your provider login expired. Run `omp login anthropic` again |
+| Login errors, or a different model than expected runs | Your Anthropic login expired. Run `omp login anthropic` again |
 | A plugin fails to install | Rerun `omp plugin install <ref>`, then check `omp plugin doctor` |
