@@ -10,7 +10,7 @@ modelRoles:
   plan: anthropic/claude-sonnet-5
   default: anthropic/claude-opus-5:xhigh
 browser: 
-  headless: false
+  headless: true
 dev: 
   autoqaConsent: granted
 display: 
