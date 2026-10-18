@@ -15,11 +15,16 @@ cd ~/omp-preset
 ./bootstrap.sh                 # installs into the default profile
 ```
 
-Then sign in to your model provider again (credentials are never copied):
+Then sign in to your providers. Logins live in `~/.omp/agent/agent.db`, which
+`bootstrap.sh` never copies, so a new machine starts signed out:
 
 ```bash
-opencode auth login            # pick anthropic
+omp login anthropic            # or just `omp login` to pick; `/login` inside omp works too
 ```
+
+The `smol` role uses the Command Code provider, so also put its API key in
+`~/.omp/agent/.env` (never commit it), or point `modelRoles.smol` at a model you
+can sign in to.
 
 Done. Start `omp` as usual.
 
@@ -152,5 +157,5 @@ batched into the next one; final updates are always reviewed.
 | Symptom | Fix |
 |---|---|
 | Chrome for Testing keeps grabbing focus | Check `omp config get browser.headless` is `true`, restart omp, quit the leftover Chrome window |
-| "Insufficient balance" / wrong model used | Your provider login expired. Run `opencode auth login` again |
+| "Insufficient balance" / wrong model used | Your provider login expired. Run `omp login anthropic` again |
 | A plugin fails to install | Rerun `omp plugin install <ref>`, then check `omp plugin doctor` |

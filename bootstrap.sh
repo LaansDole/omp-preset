@@ -71,5 +71,5 @@ echo "  plugins    -> reinstalled by ref (optional/missing local ones skipped)"
 echo
 echo "Notes:"
 echo "  - Machine-specific state (agent.db OAuth, history.db, models.db, sessions, logs, caches) was NOT ported."
-echo "  - Re-login to your providers before first use, e.g. 'opencode auth login' -> anthropic."
+echo "  - Re-login to your providers before first use, e.g. 'omp login anthropic'."
 echo "  - If omp changes a config/agent schema in a future release, update this repo (git) and re-run."
