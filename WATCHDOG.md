@@ -29,7 +29,3 @@ Global review priorities for the omp advisor. This file is injected on every adv
 - Dead, orphaned, or duplicated code paths left behind by a refactor.
 - Work violating standing constraints: local-first, manual UI verification, or no focus-stealing foreground clicks.
 - A loop or drift spread across the updates in one review. The judge gate holds low-risk steps and batches them into the next review, so read the whole span, not just the newest step.
-
-## Short plain-English wrap-up
-
-For a substantive task, check the primary agent's intended final response. If it lacks a concise plain-English ELI5/TL;DR of what changed and any concrete next action, give one brief prompt to add it before finalizing. Do not spawn a TL;DR agent, request a second summary after a summary is already present, or add one for trivial questions/answers. The wrap-up is a user-facing close, not a duplicate report.
