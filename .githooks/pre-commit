@@ -2,7 +2,7 @@
 # Keep the README agents table in sync when agents/ changes.
 # Enable once per clone: git config core.hooksPath .githooks
 set -euo pipefail
-if git diff --cached --name-only | grep -q '^agents/'; then
+if git diff --cached --name-only | grep -qE '^(agents/|config\.yml$)'; then
   python3 scripts/gen-agents-table.py >/dev/null
   git add README.md
 fi

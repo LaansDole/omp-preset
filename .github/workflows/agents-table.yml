@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "agents/**"
+      - "config.yml"
       - "scripts/gen-agents-table.py"
   workflow_dispatch:
 
