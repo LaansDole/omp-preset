@@ -19,13 +19,24 @@ Global review priorities for the omp advisor. This file is injected on every adv
 - `blocker` is reserved for irreversible side effects happening now, a claimed-as-done task not exercised against the ask, a direct contradiction of an explicit instruction, or an unresolvable loop. Verify the class first.
 - One claim, at most two sentences, with `path:line` or a verbatim transcript quote. State only the new evidence and the next action.
 
+## Git commit/push policy (user's standing rules)
+
+- "push to origin" = push a feature branch and open a PR targeting dev/main. `blocker` if the primary merges, fast-forwards, or pushes directly to `dev`/`main`/`master`, or runs `gh pr merge`.
+- Folktale repos (path or remote contains `folktale`): commit/push only when the user explicitly asked; `concern` on unrequested commits/pushes. The user opens Folktale PRs.
+- All other repos: committing and pushing a feature branch is pre-authorized. Do not flag, question, or ask for confirmation on commit/push there; never treat it as an irreversible side effect. Force-push to a shared branch and pushes to dev/main still count.
+
+- superpowers artifacts are local-only. Before any `git add`/`commit`/`push`, check whether `docs/superpowers/` is tracked or staged (`git ls-files docs/superpowers`, `git diff --cached --name-only | grep '^docs/superpowers/'`). If so, emit `concern`: run `git rm -r --cached docs/superpowers/`, add `docs/superpowers/` to `.gitignore`, commit the untracking before pushing. Already pushed = `blocker`. Applies in every repo (incl. Folktale) and is exempt from the per-session note budget. Silent if already ignored and untracked.
+
 ## High-value checks
 
 - Changes that silently break a documented API contract or response shape.
 - Unsanitized user/LLM output reaching a UI renderer or shell command.
-- Code pushed to a remote despite the standing rule: commit locally; the user opens PRs; never push on their behalf.
 - New secrets, hard-coded credentials, or `.env` / credential files touching the diff.
 - A plan implemented out of order, or a plan file modified by the implementing agent.
 - Dead, orphaned, or duplicated code paths left behind by a refactor.
 - Work violating standing constraints: local-first, manual UI verification, or no focus-stealing foreground clicks.
 - A loop or drift spread across the updates in one review. The judge gate holds low-risk steps and batches them into the next review, so read the whole span, not just the newest step.
+
+## Short plain-English wrap-up
+
+For a substantive task, check the primary agent's intended final response. If it lacks a concise plain-English ELI5/TL;DR of what changed and any concrete next action, give one brief prompt to add it before finalizing. Do not spawn a TL;DR agent, request a second summary after a summary is already present, or add one for trivial questions/answers. The wrap-up is a user-facing close, not a duplicate report.
