@@ -35,6 +35,12 @@ task:
     sonic: anthropic/claude-haiku-5-5:medium
     init: anthropic/claude-haiku-5-5:medium
     task: anthropic/claude-opus-5-5:medium
+  agentCompactionThresholdOverrides:
+    reviewer: 80%
+    scout: 80%
+    init: 80%
+    reviewer-deep: 40%
+    security-reviewer: 40%
 advisor:
   enabled: true
   immuneTurns: 8
