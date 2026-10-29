@@ -3,7 +3,7 @@ theme:
   dark: titanium
 setupVersion: 2
 modelRoles:
-  smol: commandcode/gpt-6-luna:medium
+  smol: anthropic/claude-haiku-5-5:medium
   slow: "anthropic/claude-fable-5-1:medium,anthropic/claude-fable-5:medium"
   designer: anthropic/claude-sonnet-5-5
   advisor: anthropic/claude-sonnet-5-5
