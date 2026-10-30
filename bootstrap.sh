@@ -39,6 +39,10 @@ cp "$REPO"/agents/*.md "$AGENT_DIR/agents/"
 # 3. watchdog guidance.
 cp "$REPO/WATCHDOG.md" "$AGENT_DIR/WATCHDOG.md"
 
+# 3b. rules — agent-requested rules (e.g. impeccable-design: route UI work through Impeccable).
+mkdir -p "$AGENT_DIR/rules"
+cp "$REPO"/rules/*.md "$AGENT_DIR/rules/"
+
 # 4. skills — each skills/<name>/ copied to ~/.agents/skills/<name>/ (pr agent reads writing-pr-descriptions).
 SKILL_DST="${SKILLS_DIR:-$HOME/.agents/skills}"
 mkdir -p "$SKILL_DST"
@@ -61,12 +65,25 @@ if command -v python3 >/dev/null 2>&1 && [[ -f "$REPO/plugins.json" ]]; then
   done
 fi
 
+# 6. Impeccable design skill (third-party, pbakaus/impeccable), installed by its own CLI so it stays current.
+#    It always lands in ~/.omp/agent/skills/impeccable (the CLI does not follow OMP_PROFILE). Telemetry is turned off.
+if command -v npx >/dev/null 2>&1; then
+  echo "  install: impeccable (omp, global)"
+  npx -y impeccable@latest install -y --providers=omp --global --force >/dev/null \
+    && npx -y impeccable@latest telemetry off >/dev/null \
+    || echo "  (warn) impeccable install failed; run: npx impeccable install --providers=omp --global"
+else
+  echo "  (skip) npx not found; install Node.js, then: npx impeccable install --providers=omp --global"
+fi
+
 echo
 echo "Done."
 echo "  config     -> $AGENT_DIR/config.yml  (prior saved as .preset-bak)"
 echo "  agents     -> $AGENT_DIR/agents/"
 echo "  watchdog   -> $AGENT_DIR/WATCHDOG.md"
+echo "  rules      -> $AGENT_DIR/rules/"
 echo "  skills     -> $SKILL_DST/"
+echo "  impeccable -> $HOME/.omp/agent/skills/impeccable (telemetry off)"
 echo "  plugins    -> reinstalled by ref (optional/missing local ones skipped)"
 echo
 echo "Notes:"

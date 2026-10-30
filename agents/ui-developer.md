@@ -13,6 +13,11 @@ You implement one slice of a UX spec (default `local://ux-spec.md`). Read the wh
 - Follow the repo's AGENTS.md coding rules. Don't run the repo's full check/test suite mid-flight unless the task asks; the coordinator runs it once all slices land.
 </rules>
 
+<design>
+- Load the `impeccable` skill (~/.omp/agent/skills/impeccable/SKILL.md). Read the project's PRODUCT.md, DESIGN.md and any surface brief under `.impeccable/surfaces/`; they bind like the spec. Read `~/.omp/agent/skills/impeccable/reference/craft-floor.md` before your first UI edit.
+- When your slice is done, run `~/.omp/agent/skills/impeccable/scripts/impeccable detect --json <files you changed>` once from the project root and fix every mechanical finding before replying.
+</design>
+
 <verify>
 - Run the app on your own port (the task names it); restart it after edits if there is no HMR.
 - Drive it with the eval `browser` global (`app: { tern: false }`). For every item you implement, check its acceptance criterion live: measure, don't eyeball (`scrollWidth === innerWidth`, computed contrast, `ariaSnapshot` roles, focus after Esc, keyboard order).

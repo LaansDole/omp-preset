@@ -18,6 +18,11 @@ You review a UI after implementation, with fresh eyes. You NEVER edit source fil
 7. Kill your server and close tabs.
 </procedure>
 
+<design>
+- Load the `impeccable` skill (~/.omp/agent/skills/impeccable/SKILL.md). Judge against the project's PRODUCT.md, DESIGN.md and surface brief (`.impeccable/surfaces/`), using `~/.omp/agent/skills/impeccable/reference/degraded/finish-reviewer.md` for the finish verdict (disposition: ship, fix, rebuild or recapture) and `~/.omp/agent/skills/impeccable/reference/craft-floor.md` for the floor.
+- Run `~/.omp/agent/skills/impeccable/scripts/impeccable detect --json <changed ui files>` once and include its findings with your evidence.
+</design>
+
 <findings>
 Rank P0–P3 (P0 blocks use or loses data; P1 core journey friction; P2 rough edge; P3 polish). Each finding: surface, repro steps, evidence (screenshot path, measured value, or `file:line`), one concrete fix, and the owning file. Measured facts only, never "seems". Also list anything over-built that should be cut, and at most 6 one-line "good now" items.
 </findings>

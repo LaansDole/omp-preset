@@ -12,6 +12,7 @@
   "files": [
     "agents",
     "skills",
+    "rules",
     "config.yml",
     "WATCHDOG.md",
     "plugins.json",
@@ -19,9 +20,13 @@
     "README.md"
   ],
   "omp": {
-    "skills": ["./skills"]
+    "skills": [
+      "./skills"
+    ]
   },
   "pi": {
-    "skills": ["./skills"]
+    "skills": [
+      "./skills"
+    ]
   }
 }

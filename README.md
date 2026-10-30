@@ -34,6 +34,7 @@ Done. Start `omp` as usual.
 | Task agents | `agents/` | Custom subagents omp can spawn (see [Agents](#agents)) |
 | Advisor rules | `WATCHDOG.md` | Keeps the advisor quiet unless it has real, verified evidence |
 | Skills | `skills/` | `writing-pr-descriptions`, `auditing-worktrees`, `sweeping-merged-worktrees` |
+| Design | `rules/impeccable-design.md` | Sends any UI design work through the [Impeccable](https://impeccable.style) skill (see [Design work](#design-work)) |
 | Plugins | `plugins.json` | Plugins reinstalled by reference (never copies `node_modules`) |
 
 ## Agents
@@ -56,6 +57,21 @@ otherwise the model in the agent file.
 Adding or editing an agent updates this table automatically (GitHub Action on
 push, plus a local pre-commit hook: `git config core.hooksPath .githooks`).
 To regenerate by hand: `python3 scripts/gen-agents-table.py`.
+
+## Design work
+
+Any UI task (design, restyle, critique, audit, polish) goes through
+[Impeccable](https://impeccable.style), a third-party design skill.
+
+| Piece | Where | What it does |
+|---|---|---|
+| Skill | `~/.omp/agent/skills/impeccable` | Installed by `bootstrap.sh` with `npx impeccable install --providers=omp --global`; telemetry off |
+| Rule | `rules/impeccable-design.md` | Tells the main agent and every subagent to load the skill for UI work, plus my design preferences |
+| UI agents | `ux-researcher`, `ui-developer`, `ux-reviewer` | Audit with `critique`/`audit`, build to the craft floor and run `impeccable detect`, review with the finish-reviewer verdict |
+
+Just ask for the design work in plain words, or name a command:
+`/skill:impeccable polish the pricing page`.
+Update the skill with `npx impeccable install --providers=omp --global --force`.
 
 ## Key settings at a glance
 
@@ -91,11 +107,13 @@ statusLine:
 ## What bootstrap.sh does
 
 1. Backs up your existing `config.yml` to `config.yml.preset-bak` (first run only).
-2. Copies `config.yml`, `agents/*.md`, and `WATCHDOG.md` into your omp agent dir:
+2. Copies `config.yml`, `agents/*.md`, `rules/*.md`, and `WATCHDOG.md` into your omp agent dir:
    `~/.omp/agent`, or `~/.omp/profiles/<name>/agent` with `OMP_PROFILE`,
    or `$PI_CODING_AGENT_DIR` if set.
 3. Copies `skills/*` into `~/.agents/skills/` (the `pr` agent reads its skill from there).
 4. Reinstalls each plugin in `plugins.json` with `omp plugin install`.
+5. Installs the Impeccable skill with `npx` into `~/.omp/agent/skills/impeccable` and turns its telemetry off.
+   This path ignores `OMP_PROFILE`. Without Node.js, the step is skipped with a hint.
 
 It never touches machine-specific files.
 
